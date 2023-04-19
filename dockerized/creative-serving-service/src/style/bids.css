@@ -1,0 +1,33 @@
+.bids {
+    padding: 30px 50px;
+}
+
+
+.bids-table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+}
+  
+.bids-table th,
+.bids-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.bids-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.bids-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.bids-table tbody tr:hover {
+    background-color: #ddd;
+}
+  
+

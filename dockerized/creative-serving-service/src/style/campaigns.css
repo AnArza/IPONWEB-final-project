@@ -1,0 +1,56 @@
+.campaigns {
+    padding: 30px 50px;
+}
+
+
+.campaigns-table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+}
+  
+.campaigns-table th,
+.campaigns-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.campaigns-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.campaigns-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.campaigns-table tbody tr:hover {
+    background-color: #ddd;
+}
+  
+
+.create-btn {
+    float: right;
+    position: relative;
+    bottom: 20px;
+    font-size: 20px;
+    padding: 5px;
+    width: 100px;
+}
+
+.action-btns {
+    display: flex;
+    justify-content: space-around;
+}
+.action-btns button {
+    position: relative;
+    /* margin-left: 15px; */
+    /* width: 80px; */
+    font-size: 16px;
+}
+
+.last-col {
+    width: 20vw;
+}

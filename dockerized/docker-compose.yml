@@ -1,0 +1,85 @@
+version: '3'
+ 
+services:
+  final_project:
+    build:
+      context: ./final_project
+      dockerfile: Django.Dockerfile
+    container_name: final_project
+    command: bash -c "gunicorn final_project.wsgi:application --bind 0.0.0.0:8000 "
+    volumes:
+      - ./final_project:/final_project
+      # - static_volume:/final_project/static
+      - /var/run/docker.sock:/var/run/docker.sock
+    env_file: final_project/final_project/.env
+    restart: always
+    expose:
+      - "8000"
+    depends_on:
+      - postgres
+    networks:
+      pgnet:
+    tty: true
+    stdin_open: true
+
+ 
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: nginx
+    volumes:
+    #   - static_volume:/static
+      - ./final_project:/final_project
+      - ./nginx/sites-enabled:/etc/nginx/conf.d
+      - ./nginx/passwd:/etc/nginx/passwd
+      # - ./final_project/static:/static
+    ports:
+      - "80:80"
+    depends_on:
+     - final_project
+     - react
+    
+    networks:
+      pgnet:
+    tty: true
+    stdin_open: true
+ 
+  react:
+    build:
+      context: ./creative-serving-service
+      dockerfile: Dockerfile
+    container_name: react  
+    ports:
+      - "3000:3000"
+    networks:
+      pgnet:
+    tty: true
+    stdin_open: true
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    env_file:
+      - final_project/final_project/.env
+    environment:
+      COMPOSE_HTTP_TIMEOUT: 3600
+    expose:
+      - 5432
+    ports:
+      - "5432:5432"
+    networks:
+      pgnet:
+    tty: true
+    stdin_open: true
+
+
+volumes:
+  final_project:
+  creative:
+  pgdata:
+  # static_volume:
+networks:
+  pgnet:
